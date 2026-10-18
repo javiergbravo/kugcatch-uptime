@@ -1,0 +1,13 @@
+owner: javiergbravo
+repo: kugcatch-uptime
+sites:
+  - name: Review pipeline
+    slug: review-pipeline
+    url: https://review.kugcatch.com/healthz
+    expectedStatusCodes: [200]
+    maxResponseTime: 10000
+  - name: Portal
+    slug: portal
+    url: https://app.kugcatch.com/healthz
+    expectedStatusCodes: [200]
+    maxResponseTime: 10000

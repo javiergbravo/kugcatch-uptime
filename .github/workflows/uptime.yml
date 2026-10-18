@@ -1,0 +1,27 @@
+name: Uptime CI
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: kugcatch-uptime
+  cancel-in-progress: false
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout monitor configuration
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          # Upptime pushes history with git; checkout removes this repo-scoped credential after the job.
+          persist-credentials: true
+      - name: Check endpoint liveness
+        uses: upptime/uptime-monitor@a284d6064bcbf89db3f1e2a6c533d0e69111573b # v1.46.0
+        with:
+          command: update
+        env:
+          GH_PAT: ${{ github.token }}
